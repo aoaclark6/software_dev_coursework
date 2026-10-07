@@ -1,4 +1,8 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 public class cardGame {
         public static void startGame(){
@@ -13,5 +17,30 @@ public class cardGame {
 
             String fileName = scannerObj.nextLine();
 
+
+
+            try {
+                long lineCount = Files.lines(Path.of("src", fileName)).count();
+                System.out.println(lineCount);
+                if (lineCount >= 8*noPlayers) {
+                    System.out.println("Valid card pack");
+
+                } else{
+                    System.out.println("Invalid");
+                }
+
+
+                int n = 0;
+                String line = Files.readAllLines(Path.of("src", fileName)).get(n);
+                System.out.println(line);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+            //return lineCount;
         }
 }
