@@ -6,7 +6,8 @@ import java.util.List;
 
 public class cardGame {
         public static void startGame(){
-            System.out.println("Does this even do anything");
+
+System.out.println("Does this even do anything");
             Scanner scannerObj = new Scanner (System.in);
             System.out.println("Enter the number of players: ");
 
@@ -17,7 +18,7 @@ public class cardGame {
 
             String fileName = scannerObj.nextLine();
 
-
+            player[] listOfPlayers = new player[noPlayers];
 
             try {
                 long lineCount = Files.lines(Path.of("src", fileName)).count();
@@ -32,12 +33,20 @@ public class cardGame {
 
                 int n = 0;
                 String line = Files.readAllLines(Path.of("src", fileName)).get(n);
-                System.out.println(line);
 
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            for (int n=1; n<= noPlayers; n++){
+                player player = new player();
+                player.playerIndex = n;
+                System.out.println(player);
+                listOfPlayers[n-1] = player;
+            }
+
+
 
 
 
