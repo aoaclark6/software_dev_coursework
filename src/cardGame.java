@@ -83,6 +83,12 @@ public class cardGame {
                 e.printStackTrace();
             }
 
+            Thread[] listOfThreads = new Thread[noPlayers];
+            for (int n=1; n<= noPlayers; n++){
+                Thread t = new threadClass(listOfPlayers[n-1]);
+                listOfThreads[n-1] = t;
+            }
+
 
 
 
