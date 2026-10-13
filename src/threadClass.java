@@ -6,27 +6,16 @@ class threadClass extends Thread {
     }
 
     public void run() {
-
-            if (i==0) {
-                if (player.playerCards[i].cardValue ==
-                        player.playerCards[i + 1].cardValue
-                        || player.playerCards[i + 2].cardValue
-                        || player.playerCards[i + 3].cardValue) {
-
-                            continue;
-                            }
-                else{
-                    continue;
-                }
+        System.out.println(player.playerCards[0].cardValue);
 
 
-                for (i = 0; i < 4; i++) {
-                    if (player.playerCards[i].cardValue == player.playerIndex){
-                        continue;
+//                        if (player.playerCards[0].cardValue
+//                                .equals(player.playerCards[1].cardValue
+//                                        .equals(player.playerCards[2].cardValue
+//                                                .equals(player.playerCards[3].cardValue)))){
+//                            System.out.println("Player has won");
+//                        }
             }
 
         }
-        System.out.println(task + " is being prepared by " +
-                Thread.currentThread().getName());
-    }
-}
+
