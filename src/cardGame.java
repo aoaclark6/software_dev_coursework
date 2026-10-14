@@ -2,7 +2,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.*;
+
 
 public class cardGame {
         public static void startGame(){
@@ -21,6 +22,21 @@ public class cardGame {
             //arrays of player and deck objects
             player[] listOfPlayers = new player[noPlayers];
             cardDeck[] listOfDecks = new cardDeck[noPlayers];
+            List<cardDeck> listOfDecksSyncList =
+                    Collections.synchronizedList(new ArrayList<cardDeck>());
+
+//            public List<String> getList(){
+//                return this.players;
+//            }
+
+//            synchronized(listOfDecksSyncList)
+//            {
+//                // must be in synchronized block
+//                Iterator it = listOfDecksSyncList.iterator();
+//
+//                while (it.hasNext())
+//                    System.out.println(it.next());
+//            }
 
 
             try {
@@ -40,17 +56,20 @@ public class cardGame {
                 for (int n=1; n<= noPlayers; n++){
                     player player = new player();
                     player.playerIndex = n;
-                    System.out.println(player);
+//                    System.out.println(player);
                     listOfPlayers[n-1] = player;
                 }
 
                 //creates the correct amount of deck objects for the amount of players and stores them in the list of decks
 
+
+
                 for (int n=1; n<= noPlayers; n++){
                     cardDeck deck = new cardDeck();
                     deck.deckIndex = n;
-                    System.out.println(deck);
+//                    System.out.println(deck);
                     listOfDecks[n-1] = deck;
+                    listOfDecksSyncList.add(listOfDecks[n-1]);
                 }
 
 
@@ -67,19 +86,22 @@ public class cardGame {
                         listOfCardValues[x-1] = line;
                     }
                     if( (n % 2) == 1) {
-                        listOfPlayers[(n-1)/2].playerCards = listOfCards;
+                        listOfPlayers[(n-1)/2].setPlayerCards(listOfCards);
                     }
                     if( (n % 2) == 0) {
-                        listOfDecks[(n-2)/2].deckCards = listOfCards;
+                        listOfDecks[(n-2)/2].setDeckCards(listOfCards);
                     }
+
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            Thread x = new threadClass(listOfPlayers[0]);
-            x.start();
+
+
+//            System.out.println(listOfDecksSyncList);
+
 
             Thread[] listOfThreads = new Thread[noPlayers];
             for (int n=1; n<= noPlayers; n++) {
@@ -98,15 +120,6 @@ public class cardGame {
 //
 //                t.start();
 //            }
-
-
-
-
-
-
-
-
-
 
             //return lineCount;
         }
