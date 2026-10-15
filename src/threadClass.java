@@ -1,12 +1,17 @@
+import java.io.IOException;
 import java.util.List;
+import java.io.FileWriter;
 
 class threadClass extends Thread {
-    private player player;
+    public player player;
+    public List<cardDeck> listOfDecksSyncList;
+    public int noPlayers;
 
-    private List<cardDeck> listOfDecksSyncList;
-
-    threadClass(player player) {
+    threadClass(player player, List<cardDeck> listOfDecksSyncList,int noPlayers) {
         this.player = player;
+        this.listOfDecksSyncList = listOfDecksSyncList;
+        this.noPlayers = noPlayers;
+
     }
     threadClass(List<cardDeck> listOfDecksSyncList){this.listOfDecksSyncList = listOfDecksSyncList;}
 
@@ -22,16 +27,62 @@ class threadClass extends Thread {
                 }
             }
 
-            for(int i=0; i<4; i++){
-                if (Integer.parseInt( player.playerCardsSyncList.get(i).cardValue) != player.playerIndex){
+        System.out.println("player "+player.playerIndex+" cards " + player.playerCardsSyncList.get(0).cardValue + " "+ player.playerCardsSyncList.get(1).cardValue + " "+ player.playerCardsSyncList.get(2).cardValue + " "+ player.playerCardsSyncList.get(3).cardValue + " " +
+                "deck "+player.playerIndex+" cards " + listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(0).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(1).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(2).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(3).cardValue + " ");
+
+
+        for(int i=0; i<4; i++){
+                if (Integer.parseInt( player.playerCardsSyncList.get(i).cardValue) != player.playerIndex) {
+//                    System.out.println("player index is " + player.playerIndex + " and card being checked is " + player.playerCardsSyncList.get(i).cardValue);
+
+                    //drawing card
+                    card drewCard = listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.getFirst();
+                    listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.removeFirst();
+                    player.playerCardsSyncList.add(drewCard);
+//                    try{
+//
+//                        FileWriter logWriter = new FileWriter ("src/player_" + player.playerIndex + "_log.txt");
+//                        logWriter.newline();
+//                        logWriter.write("Player " + player.playerIndex + " + drew a " + drewCard.cardValue + " from the deck");
+//                        logWriter.close();
+//                        System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");
+//                    } catch (IOException e) {
+//                        System.out.println("An error occurred with Player " + player.playerIndex + "'s draw to their log");
+//
+//                    }
+
+
+                    //discarding card
                     card discardedCard = player.playerCardsSyncList.get(i);
-                    System.out.println("player index is " + player.playerIndex + " and card being checked is " + player.playerCardsSyncList.get(i).cardValue);
                     player.playerCardsSyncList.remove(i);
-//                    cardDeck.deckCardsSyncList.get(i+1).add(discardedCard);
+                    if(player.playerIndex == noPlayers){
+                        listOfDecksSyncList.get(0).deckCardsSyncList.add(discardedCard);
+                    }
+                    else{
+                        listOfDecksSyncList.get(player.playerIndex).deckCardsSyncList.add(discardedCard);
+                    }
 
-                    System.out.println(listOfDecksSyncList);
+                    String currentHand = player.playerCardsSyncList.get(0).cardValue + " "+ player.playerCardsSyncList.get(1).cardValue + " "+ player.playerCardsSyncList.get(2).cardValue + " "+ player.playerCardsSyncList.get(3).cardValue + " ";
+                    String currentDeck = listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(0).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(1).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(2).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(3).cardValue;
 
-                    listOfDecksSyncList.get(i+1).deckCardsSyncList.add(discardedCard);
+
+//                    try{
+//                        FileWriter logWriter = new FileWriter ("src/player_" + player.playerIndex + "_log.txt");
+//                        logWriter.newline();
+//                        logWriter.write("Player " + player.playerIndex + " discarded a " + discardedCard.cardValue + " to the deck");
+//                        logWriter.newline();
+//                        logWriter.write("Player " + player.playerIndex + "'s current hand: " + currentHand);
+//                        logWriter.close();
+//                        System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");
+//                    } catch (IOException e) {
+//                        System.out.println("An error occurred with Player " + player.playerIndex + "'s discard to their log");
+//                    }
+
+
+
+
+                    System.out.println("player "+player.playerIndex+" cards " + player.playerCardsSyncList.get(0).cardValue + " "+ player.playerCardsSyncList.get(1).cardValue + " "+ player.playerCardsSyncList.get(2).cardValue + " "+ player.playerCardsSyncList.get(3).cardValue + " " +
+                            "deck "+player.playerIndex+" cards " + listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(0).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(1).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(2).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(3).cardValue + " ");
 
 
                     break;
@@ -43,14 +94,7 @@ class threadClass extends Thread {
 
 //        }
 
-
-
     }
-
-
-
-
-
 }
 
 

@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.io.File;
 
 
 public class cardGame {
@@ -10,14 +11,40 @@ public class cardGame {
 
             // saves players input as noPlayers
             Scanner scannerObj = new Scanner (System.in);
+            boolean validPlayerNumber = false;
+            System.out.println(validPlayerNumber);
+            int noPlayers;
             System.out.println("Enter the number of players: ");
+            noPlayers = Integer.parseInt(scannerObj.nextLine());
 
-            int noPlayers = Integer.parseInt(scannerObj.nextLine());
+//            while (!validPlayerNumber) {
+//                System.out.println("Loop reached");
+//                try {
+//                    System.out.println("Enter the number of players: ");
+//                    noPlayers = Integer.parseInt(scannerObj.nextLine());
+//                    validPlayerNumber = true;
+//                } catch (Exception e){
+//                    System.out.println("Dude that's not an integer :(");
+//                }
+//            }
+
+
 
             //saves players input as fileName
             System.out.println("Please enter the name of the file that you would like to use to load the card pack: ");
 
             String fileName = scannerObj.nextLine();
+            File filepath = new File ("src/" + fileName);
+
+            while (! filepath.exists()){
+                System.out.println("Please enter the name of the file that you would like to use to load the card pack: ");
+                fileName = scannerObj.nextLine();
+                filepath = new File("src/" + fileName);
+                System.out.println(filepath);
+                if (filepath.exists()){
+                    break;
+                }
+            }
 
             //arrays of player and deck objects
             player[] listOfPlayers = new player[noPlayers];
@@ -25,17 +52,25 @@ public class cardGame {
             List<cardDeck> listOfDecksSyncList =
                     Collections.synchronizedList(new ArrayList<cardDeck>());
 
-//            public List<String> getList(){
-//                return this.players;
-//            }
-
-//            synchronized(listOfDecksSyncList)
-//            {
-//                // must be in synchronized block
-//                Iterator it = listOfDecksSyncList.iterator();
-//
-//                while (it.hasNext())
-//                    System.out.println(it.next());
+            //Creates a new player log file for each player in the game
+//            for (int i=0; i<4; i++){
+//                File playerLog = new File("player_"+(i+1)+"_log.txt");
+//                File deckLog = new File("deck_"+(i+1)+"_log.txt);
+//                try{
+//                    if (playerLog.createNewFile()) {
+//                        System.out.println("File created: " + playerLog.getName());
+//                    }
+//                    else{
+//                        System.out.print("File was not created for Player I guess?");
+//                    }
+//                    if (deckLog.createNewFile()) {
+//                       System.out.println("File created: " + deckLog.getName();
+//                    }
+//                    else{
+//                        System.out.println("File was not created for deck");
+//                } catch(IOException e){
+//                        System.out.print("Error occured in creating a file for player " + (i+1));
+//                    }
 //            }
 
 
@@ -100,12 +135,9 @@ public class cardGame {
 
 
 
-//            System.out.println(listOfDecksSyncList);
-
-
             Thread[] listOfThreads = new Thread[noPlayers];
             for (int n=1; n<= noPlayers; n++) {
-                Thread t = new threadClass(listOfPlayers[n - 1]);
+                Thread t = new threadClass(listOfPlayers[n - 1],listOfDecksSyncList,noPlayers);
                 listOfThreads[n - 1] = t;
             }
             for (int n=1; n<= noPlayers; n++){
