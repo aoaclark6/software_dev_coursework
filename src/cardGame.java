@@ -47,6 +47,7 @@ public class cardGame {
             }
 
             //arrays of player and deck objects
+
             player[] listOfPlayers = new player[noPlayers];
             cardDeck[] listOfDecks = new cardDeck[noPlayers];
             List<cardDeck> listOfDecksSyncList =
@@ -55,23 +56,28 @@ public class cardGame {
             //Creates a new player log file for each player in the game
 //            for (int i=0; i<4; i++){
 //                File playerLog = new File("player_"+(i+1)+"_log.txt");
-//                File deckLog = new File("deck_"+(i+1)+"_log.txt);
-//                try{
+//                File deckLog = new File("deck_"+(i+1)+"_log.txt");
+//                try {
 //                    if (playerLog.createNewFile()) {
 //                        System.out.println("File created: " + playerLog.getName());
-//                    }
-//                    else{
+//                    } else {
 //                        System.out.print("File was not created for Player I guess?");
 //                    }
-//                    if (deckLog.createNewFile()) {
-//                       System.out.println("File created: " + deckLog.getName();
-//                    }
-//                    else{
-//                        System.out.println("File was not created for deck");
 //                } catch(IOException e){
-//                        System.out.print("Error occured in creating a file for player " + (i+1));
+//                        System.out.print("Error occured in creating a file for player " + (i + 1));
 //                    }
+//                try {
+//                    if (deckLog.createNewFile()) {
+//                        System.out.println("File created: " + deckLog.getName());
+//                    } else {
+//                        System.out.println("File was not created for deck");
+//                    }
+//                } catch(IOException e){
+//                        System.out.print("Error occurred in creating a file for player " + (i + 1));
+//                    }
+//
 //            }
+
 
 
             try {
