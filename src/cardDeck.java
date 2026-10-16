@@ -8,9 +8,8 @@ public class cardDeck {
     List<cardDeck> listOfDecksSyncList =
             Collections.synchronizedList(new ArrayList<cardDeck>());
 
-
-
     int deckIndex;
+
     public void setDeckCards(card[] inputtedDeckCards){
         this.deckCards = inputtedDeckCards;
         this.deckCardsSyncList.add(inputtedDeckCards[0]);

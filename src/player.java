@@ -9,6 +9,7 @@ public class player {
     int playerIndex;
     public void setPlayerCards(card[] inputtedPlayerCards){
         this.playerCards = inputtedPlayerCards;
+        System.out.println(inputtedPlayerCards);
         this.playerCardsSyncList.add(inputtedPlayerCards[0]);
         this.playerCardsSyncList.add(inputtedPlayerCards[1]);
         this.playerCardsSyncList.add(inputtedPlayerCards[2]);

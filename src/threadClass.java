@@ -18,14 +18,33 @@ class threadClass extends Thread {
     public void run() {
 //        Boolean game_over = Boolean.FALSE;
 //        while (!game_over) {
+        System.out.println(player.playerCardsSyncList.get(3).cardValue);
+
             if (player.playerCardsSyncList.get(0).cardValue.equals(player.playerCardsSyncList.get(1).cardValue)) {
                 if (player.playerCardsSyncList.get(0).cardValue.equals(player.playerCardsSyncList.get(2).cardValue)) {
                     if (player.playerCardsSyncList.get(0).cardValue.equals(player.playerCardsSyncList.get(3).cardValue)) {
 //                        game_over = true;
                         System.out.println("player " + Integer.toString(player.playerIndex) + " wins");
+//                        for (int i=0; i<4; i++){
+//                            try{
+//                                FileWriter logWriter = new FileWriter ("src/player_" + listOfPlayers[i] + "_log.txt");
+//                                logWriter.write(System.lineSeparator());
+//                                logWriter.write("Player " + player.playerIndex + " has won!");
+//                                logWriter.write(System.lineSeparator());
+//                                logWriter.write("Player " + listOfPlayers[i] + " exits");
+//                                logWriter.close();
+//                                System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");
+//                            } catch (IOException e) {
+//                                System.out.println("An error occurred with Player " + player.playerIndex + "'s draw to their log");
+//                            }
+//                        }
+
+
                     }
                 }
             }
+
+        System.out.println(player.playerCardsSyncList.get(0).cardValue);
 
         System.out.println("player "+player.playerIndex+" cards " + player.playerCardsSyncList.get(0).cardValue + " "+ player.playerCardsSyncList.get(1).cardValue + " "+ player.playerCardsSyncList.get(2).cardValue + " "+ player.playerCardsSyncList.get(3).cardValue + " " +
                 "deck "+player.playerIndex+" cards " + listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(0).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(1).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(2).cardValue + " "+ listOfDecksSyncList.get(player.playerIndex-1).deckCardsSyncList.get(3).cardValue + " ");
@@ -39,11 +58,12 @@ class threadClass extends Thread {
                     card drewCard = listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.getFirst();
                     listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.removeFirst();
                     player.playerCardsSyncList.add(drewCard);
+
 //                    try{
 //
 //                        FileWriter logWriter = new FileWriter ("src/player_" + player.playerIndex + "_log.txt");
-//                        logWriter.newline();
-//                        logWriter.write("Player " + player.playerIndex + " + drew a " + drewCard.cardValue + " from the deck");
+//                        logWriter.write(System.lineSeparator());
+//                        logWriter.write("Player " + player.playerIndex + " + drew a " + drewCard.cardValue + " from deck" + player.playerIndex);
 //                        logWriter.close();
 //                        System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");
 //                    } catch (IOException e) {
@@ -68,9 +88,14 @@ class threadClass extends Thread {
 
 //                    try{
 //                        FileWriter logWriter = new FileWriter ("src/player_" + player.playerIndex + "_log.txt");
-//                        logWriter.newline();
-//                        logWriter.write("Player " + player.playerIndex + " discarded a " + discardedCard.cardValue + " to the deck");
-//                        logWriter.newline();
+//                        logWriter.write(System.lineSeparator());
+//                        if (player.playerIndex < 4){
+//                          logWriter.write("Player " + player.playerIndex + " discarded a " + discardedCard.cardValue + " to deck" + player.playerIndex+1);
+//                          }
+//                        else{
+//                          logWriter.write("Player " + player.playerIndex + " discarded a " + discardedCard.cardValue + " to deck 1");
+//                          }
+//                        logWriter.write(System.lineSeparator());
 //                        logWriter.write("Player " + player.playerIndex + "'s current hand: " + currentHand);
 //                        logWriter.close();
 //                        System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");

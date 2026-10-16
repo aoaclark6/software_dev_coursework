@@ -108,24 +108,58 @@ public class cardGame {
                 }
 
 
-                //this loop assigns the cards to the player and deck
-                for (int n=1; n<= noPlayers*2; n++){
-                    card[] listOfCards = new card[4];
-                    String[] listOfCardValues = new String[4];
+//                //this loop assigns the cards to the player
+//                for (int n=1; n<= noPlayers; n++){
+//                    card[] listOfCards = new card[4];
+//                    String[] listOfCardValues = new String[4];
+//
+//                    for (int x=1; x<= 4; x++) {
+//                        card currentCard = new card();
+//                        String line = Files.readAllLines(Path.of("src", fileName)).get(((x-1)*4)+n-1);
+//                        currentCard.setCardValue(line);
+//                        listOfCards[x-1] = currentCard;
+//                        listOfCardValues[x-1] = line;
+//                    }
+//                    if( (n % 2) == 1) {
+//                        listOfPlayers[(n-1)/2].setPlayerCards(listOfCards);
+//                    }
+//                    if( (n % 2) == 0) {
+//                        listOfDecks[(n-2)/2].setDeckCards(listOfCards);
+//                    }
+//
+//                }
+
+                //this loop assigns the cards to the player
+                for (int n=1; n<= noPlayers; n++){
+                    card[] listOfPlayerCards = new card[4];
+                    String[] listOfPlayerCardValues = new String[4];
+                    card[] listOfDeckCards = new card[4];
+                    String[] listOfDeckCardValues = new String[4];
+
 
                     for (int x=1; x<= 4; x++) {
                         card currentCard = new card();
-                        String line = Files.readAllLines(Path.of("src", fileName)).get(((x-1)*8)+n-1);
+                        String line = Files.readAllLines(Path.of("src", fileName)).get(((x-1)*4)+n-1);
                         currentCard.setCardValue(line);
-                        listOfCards[x-1] = currentCard;
-                        listOfCardValues[x-1] = line;
+                        listOfPlayerCards[x-1] = currentCard;
+                        listOfPlayerCardValues[x-1] = line;
+
+                        card currentCard2 = new card();
+                        String line2 = Files.readAllLines(Path.of("src", fileName)).get(((x-1)*4)+n-1+4*noPlayers);
+                        currentCard2.setCardValue(line2);
+                        listOfDeckCards[x-1] = currentCard2;
+                        listOfDeckCardValues[x-1] = line2;
+
+
+//                        System.out.println(Arrays.toString(listOfPlayerCardValues));
+//                        System.out.println(Arrays.toString(listOfDeckCardValues));
+//                        System.out.println(listOfDecks[n-1].deckIndex);
+//                        System.out.println(listOfPlayers[n-1].playerIndex);
+
+
                     }
-                    if( (n % 2) == 1) {
-                        listOfPlayers[(n-1)/2].setPlayerCards(listOfCards);
-                    }
-                    if( (n % 2) == 0) {
-                        listOfDecks[(n-2)/2].setDeckCards(listOfCards);
-                    }
+                    listOfPlayers[(n-1)].setPlayerCards(listOfPlayerCards);
+                    listOfDecks[(n-1)].setDeckCards(listOfDeckCards);
 
                 }
 
@@ -133,10 +167,33 @@ public class cardGame {
                 e.printStackTrace();
             }
 
+            /*
+                    try{
+                        FileWriter logWriter = new FileWriter ("src/player_" + player.playerIndex + "_log.txt");
+                        logWriter.write("Player " + player.playerIndex + "'s initial hand: " + Arrays.toString(listOfPlayerCardValues);
+                        logWriter.close();
+                        System.out.println("Successfully wrote to Player " + player.playerIndex + "'s log file.");
+                   } catch (IOException e) {
+                        System.out.println("An error occurred with Player " + player.playerIndex + "'s draw to their log");
+
+                    }
+             */
+
 
 
             Thread[] listOfThreads = new Thread[noPlayers];
             for (int n=1; n<= noPlayers; n++) {
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList);
+                System.out.println(listOfDecks[n - 1].deckCardsSyncList);
+                System.out.println(listOfPlayers[n - 1].playerCards[0].cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCards[1].cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCards[2].cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCards[3].cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList);
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList.get(0).cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList.get(1).cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList.get(2).cardValue);
+                System.out.println(listOfPlayers[n - 1].playerCardsSyncList.get(3).cardValue);
                 Thread t = new threadClass(listOfPlayers[n - 1],listOfDecksSyncList,noPlayers);
                 listOfThreads[n - 1] = t;
             }
@@ -144,15 +201,5 @@ public class cardGame {
                 listOfThreads[n - 1].start();
             }
 
-
-//            Thread[] listOfThreads = new Thread[noPlayers];
-//            for (int n=1; n<= noPlayers; n++){
-//                Thread t = new threadClass(listOfPlayers[n-1]);
-//                listOfThreads[n-1] = t;
-//
-//                t.start();
-//            }
-
-            //return lineCount;
         }
 }
