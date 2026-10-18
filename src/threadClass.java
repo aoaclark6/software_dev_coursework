@@ -60,7 +60,6 @@ class threadClass extends Thread {
         }
     }
 
-
         public void gameRound () {
             //fetches the draw and discard deck
             cardDeck drawDeck = listOfDecksSyncList.get(player.playerIndex - 1);

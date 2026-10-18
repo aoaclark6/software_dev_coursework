@@ -78,7 +78,6 @@ public class cardGame {
 //                    }
 //            }
 
-
         try {
 
             //looks for the file and check if it has a valid layout for the number of players
