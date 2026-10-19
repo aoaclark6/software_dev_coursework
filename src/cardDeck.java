@@ -16,11 +16,7 @@ public class cardDeck {
         this.deckCardsSyncList.add(inputtedDeckCards[1]);
         this.deckCardsSyncList.add(inputtedDeckCards[2]);
         this.deckCardsSyncList.add(inputtedDeckCards[3]);
-//        System.out.println(deckCardsSyncList);
     }
-
-
-
 
     public card[] returnDeckCards(){
         return deckCards;
