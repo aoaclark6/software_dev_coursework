@@ -1,3 +1,5 @@
+package Code;
+
 import java.io.IOException;
 import java.util.List;
 import java.io.FileWriter;
@@ -20,8 +22,8 @@ class threadClass extends Thread {
             if (player.playerCardsSyncList.get(0).cardValue.equals(player.playerCardsSyncList.get(2).cardValue)) {
                 if (player.playerCardsSyncList.get(0).cardValue.equals(player.playerCardsSyncList.get(3).cardValue)) {
                     cardGame.winningPlayer = " ";
-                    System.out.println("player " + player.playerIndex + " wins");
-                    for (int i=0; i<4; i++){
+                    System.out.println("Code.player " + player.playerIndex + " wins");
+                    for (int i=0; i<noPlayers; i++){
                         int playerLogToAppend = i+1;
                         try{
                             FileWriter logWriter = new FileWriter ("src/player_" + playerLogToAppend + "_log.txt", true);
@@ -102,7 +104,7 @@ class threadClass extends Thread {
         synchronized (firstLock) {
             synchronized (secondLock) {
 
-                //drawing card
+                //drawing Code.card
                 card drewCard = drawDeck.deckCardsSyncList.removeFirst();
                 player.playerCardsSyncList.add(drewCard);
 
@@ -121,12 +123,12 @@ class threadClass extends Thread {
 
 
 
-                //discarding card
+                //discarding Code.card
                 for (int i = 0; i < player.playerCardsSyncList.size(); i++) {
                     if (Integer.parseInt(player.playerCardsSyncList.get(i).cardValue) != player.playerIndex) {
                         card discardedCard = player.playerCardsSyncList.remove(i);
                         discardDeck.deckCardsSyncList.add(discardedCard);
-                        //current hand of player
+                        //current hand of Code.player
                         String currentHand = " ";
                         for (int j = 0; j < player.playerCardsSyncList.size(); j++) {
                             currentHand = currentHand + player.playerCardsSyncList.get(j).cardValue + " ";
@@ -177,8 +179,8 @@ class threadClass extends Thread {
         }
         deckOutput();
 
-//        System.out.println("player " + player.playerIndex + " cards " + player.playerCardsSyncList.get(0).cardValue + " " + player.playerCardsSyncList.get(1).cardValue + " " + player.playerCardsSyncList.get(2).cardValue + " " + player.playerCardsSyncList.get(3).cardValue + " " +
-//                "deck " + player.playerIndex + " cards " + listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.get(0).cardValue + " " + listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.get(1).cardValue + " " + listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.get(2).cardValue + " " + listOfDecksSyncList.get(player.playerIndex - 1).deckCardsSyncList.get(3).cardValue + " ");
+//        System.out.println("Code.player " + Code.player.playerIndex + " cards " + Code.player.playerCardsSyncList.get(0).cardValue + " " + Code.player.playerCardsSyncList.get(1).cardValue + " " + Code.player.playerCardsSyncList.get(2).cardValue + " " + Code.player.playerCardsSyncList.get(3).cardValue + " " +
+//                "deck " + Code.player.playerIndex + " cards " + listOfDecksSyncList.get(Code.player.playerIndex - 1).deckCardsSyncList.get(0).cardValue + " " + listOfDecksSyncList.get(Code.player.playerIndex - 1).deckCardsSyncList.get(1).cardValue + " " + listOfDecksSyncList.get(Code.player.playerIndex - 1).deckCardsSyncList.get(2).cardValue + " " + listOfDecksSyncList.get(Code.player.playerIndex - 1).deckCardsSyncList.get(3).cardValue + " ");
 
 
     }

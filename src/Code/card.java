@@ -1,3 +1,5 @@
+package Code;
+
 public class card {
     public String cardValue;
     public void setCardValue(String inputtedValue){

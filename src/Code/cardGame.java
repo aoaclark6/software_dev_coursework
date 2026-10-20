@@ -1,3 +1,5 @@
+package Code;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.nio.file.Files;
@@ -10,6 +12,27 @@ public class cardGame {
 
     static String winningPlayer = null;
 
+    public static player[] createListOfPlayers(int numPlayers){
+        player[] listOfPlayers = new player[numPlayers];
+        for (int n=1; n<= numPlayers; n++){
+            player player = new player();
+            player.playerIndex = n;
+            listOfPlayers[n-1] = player;
+        }
+        return listOfPlayers;
+    }
+
+    public static cardDeck[] createListOfDecks(int numPlayers, List<cardDeck> listOfDecksSyncList){
+        cardDeck[] listOfDecks = new cardDeck[numPlayers];
+        for (int n=1; n<= numPlayers; n++){
+            cardDeck deck = new cardDeck();
+            deck.deckIndex = n;
+            listOfDecks[n-1] = deck;
+            listOfDecksSyncList.add(listOfDecks[n-1]);
+
+        }
+        return listOfDecks;
+    }
 
 
     public static void startGame(){
@@ -93,46 +116,11 @@ public class cardGame {
 
             //creates the correct amount of player objects for the amount of players and stores them in the list of players
 
-            for (int n=1; n<= noPlayers; n++){
-                player player = new player();
-                player.playerIndex = n;
-//                    System.out.println(player);
-                listOfPlayers[n-1] = player;
-            }
+            listOfPlayers = createListOfPlayers(noPlayers);
 
             //creates the correct amount of deck objects for the amount of players and stores them in the list of decks
 
-
-
-            for (int n=1; n<= noPlayers; n++){
-                cardDeck deck = new cardDeck();
-                deck.deckIndex = n;
-//                    System.out.println(deck);
-                listOfDecks[n-1] = deck;
-                listOfDecksSyncList.add(listOfDecks[n-1]);
-            }
-
-
-//                //this loop assigns the cards to the player
-//                for (int n=1; n<= noPlayers; n++){
-//                    card[] listOfCards = new card[4];
-//                    String[] listOfCardValues = new String[4];
-//
-//                    for (int x=1; x<= 4; x++) {
-//                        card currentCard = new card();
-//                        String line = Files.readAllLines(Path.of("src", fileName)).get(((x-1)*4)+n-1);
-//                        currentCard.setCardValue(line);
-//                        listOfCards[x-1] = currentCard;
-//                        listOfCardValues[x-1] = line;
-//                    }
-//                    if( (n % 2) == 1) {
-//                        listOfPlayers[(n-1)/2].setPlayerCards(listOfCards);
-//                    }
-//                    if( (n % 2) == 0) {
-//                        listOfDecks[(n-2)/2].setDeckCards(listOfCards);
-//                    }
-//
-//                }
+            listOfDecks = createListOfDecks(noPlayers,listOfDecksSyncList);
 
             //this loop assigns the cards to the player
             for (int n=1; n<= noPlayers; n++){
